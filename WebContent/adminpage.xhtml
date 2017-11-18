@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+<title>aaaaaaa</title>
+<style>
+.error{ color=red;}
+</style>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</h:head>
+<h:body style="background-color:cyan">
+
+<h:form>
+  <div class="container" >
+  <div class="jumbotron" >
+  	<h:commandButton value="Logout" class="btn btn-lg pull-right" action="#{adminlog.invalidity}"></h:commandButton>
+    <h1 class="text-center"><b>Administrator Home</b></h1>      
+    <p class="text-center"></p>
+    
+  </div> 
+     <h1><b>Request for manager</b></h1>
+     <h:commandButton value="Reject" class="btn btn-primary btn-lg pull-right" action="#{adminlog.deletetempman}"></h:commandButton> 
+     <h:commandButton value="Accept" class="btn btn-primary btn-lg pull-right" action="#{adminlog.selectedman}"></h:commandButton>     
+	<h:messages globalOnly="true"/>
+	
+	<h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle" value="#{adminlog.selected}">
+		<f:selectItems value="#{adminlog.numbers}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	
+	<h:dataTable class="table table-striped" var="x" value="#{adminlog.xyz}" style="background-color:orange">
+		<h:column>
+			<f:facet name="header">sno </f:facet>
+			<h:outputText value="#{x.sno}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">name </f:facet>
+			<h:outputText value="#{x.name}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">mobile </f:facet>
+			<h:outputText value="#{x.mobile}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">email </f:facet>
+			<h:outputText value="#{x.email}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">address   </f:facet>
+			<h:outputText value="#{x.address}"></h:outputText>
+		</h:column>
+	</h:dataTable>
+	
+</div>
+	
+</h:form>
+</h:body>
+</html>

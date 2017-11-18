@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+<title>aaaaaaa</title>
+<style>
+.error{ color=red;}
+</style>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</h:head>
+<h:body style="background-color:cyan">
+<div class="container" >
+  <h:form>
+  <div class="jumbotron" >
+    <h1 class="text-center"><b>#{usereg.name3}  Manager</b></h1> 
+    <h:commandButton value="Request" class="btn pull-right btn-lg" action="#{usereg.requestman}"></h:commandButton>     
+    <p class="text-center"></p>    
+  </div>     
+
+  <div class="jumbotron" style="background-color:GreenYellow " >
+ #{usereg.iduser3}
+    <h2 class="text-left"><b>Manager Profile</b></h2>    
+   <table class="table table-hover" >
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>#{usereg.name3}</th>
+       </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Email</td>
+        <td>#{usereg.email3}</td>       
+      </tr>
+      <tr>
+        <td>Address</td>
+        <td>#{usereg.address3}</td>    
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>#{usereg.mobile3}</td> 
+      </tr>
+      
+    </tbody>
+  </table>   
+    </div>
+	 </h:form>
+   
+ </div>
+</h:body>
+</html>
+ 
+  
+
+  
+
+ 

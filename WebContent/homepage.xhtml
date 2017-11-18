@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+<title>aaaaaaa</title>
+<style>
+.error{ color=red;}
+
+</style>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</h:head>
+<h:body style="background-color:cyan">
+
+
+  <div class="container" >
+  <div class="jumbotron" >
+    <h1 class="text-center"><b>mystock</b></h1>      
+    <p class="text-center">mystock is the stock exchange for buying,selling and managing stocks on the web.</p>
+  </div>     
+<h:form>
+    <div class="btn-group btn-group-justified">
+    <div class="btn-group">      
+      <h:commandButton value="User" action="userlogin" class="btn btn-primary btn-lg"></h:commandButton>
+    </div>
+    <div class="btn-group">
+       <h:commandButton value="Manager" action="manlogin" class="btn btn-primary btn-lg"></h:commandButton>
+    </div>
+    <div class="btn-group">
+       <h:commandButton value="Admin" action="adlog" class="btn btn-primary btn-lg"></h:commandButton>
+    </div>
+    
+  </div> 
+</h:form>
+<br/><br/>
+<img src="http://www.internetbusinessideas-viralmarketing.com/images/Stock-Market10.jpg" class="img-circle center-block" alt="Cinque Terre" width="604" height="436"/>
+	
+</div>
+</h:body>
+</html>

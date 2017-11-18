@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<head>
+<title>aaaaaaa</title>
+<style>
+.error{ color=red;}
+</style>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<h:body style="background-color:cyan">
+<div class="container">
+  <h:form>
+    <div class="panel panel-primary" style="background-color:cyan">
+    	<div class="panel-heading text-center"><h1><b>Manager Registration</b></h1></div>
+    <h5><b>Enter your  name</b> </h5><br/>
+	<h:inputText value="#{manlog.name}" required="true" label="name" id="name" class="form-control input-lg">
+		<f:validateRegex pattern="[a-zA-Z]+"></f:validateRegex>
+	</h:inputText>	
+	<h:message for="name" styleClass="error" ></h:message>
+	
+	<br/><h5><b>Enter your mobile</b></h5><br/>
+	<h:inputText value="#{manlog.mobile}" required="true" label="mobile" id="mobile" class="form-control input-lg"></h:inputText>
+	<h:message for="mobile" styleClass="error" ></h:message>
+	
+	<br/><h5><b> Enter your  email address</b></h5><br/>
+	<h:inputText  value="#{manlog.email}" required="true" label="email" id="email" class="form-control input-lg">
+	<f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+" />
+	</h:inputText>
+	<h:message for="email" styleClass="error" ></h:message>
+	
+	<br/><h5><b>Enter your address</b></h5><br/>
+	<h:inputText value="#{manlog.address}" required="true" label="address" id="address" class="form-control input-lg">
+	<f:validateRegex pattern="[a-zA-Z]+"></f:validateRegex>
+	</h:inputText>
+	<h:message for="address" styleClass="error" ></h:message>
+	
+	<br/><h5><b>Enter your username</b></h5><br/>
+	<h:inputText value="#{manlog.user}" required="true" label="usernam" id="usernam" class="form-control input-lg">
+	<f:validateRegex pattern="[a-zA-Z]+"></f:validateRegex>
+	</h:inputText>
+	<h:message for="usernam" styleClass="error" ></h:message>
+	
+	<br/><h5><b>Enter your password</b></h5><br/>
+	<h:inputSecret value="#{manlog.passw}" required="true" label="passw" id="passw" class="form-control input-lg">
+	<f:validateRegex pattern="[a-zA-Z]+"></f:validateRegex>
+	</h:inputSecret>
+	<h:message for="passw" styleClass="error" ></h:message>
+	<br/><h:commandButton value="Request" action="#{manlog.domanregtemp}" class="btn btn-primary btn-lg"> </h:commandButton><br/>
+	<h:messages globalOnly="true"/>
+	</div>
+	</h:form>
+	<h:form>
+	<br/><h5><b>Already a Manager ....</b></h5><h:commandButton value="Sign in" action="manlogin" class="btn btn-primary btn-lg"> </h:commandButton><br/>
+    </h:form>
+
+
+</div>
+</h:body>
+
+</html>

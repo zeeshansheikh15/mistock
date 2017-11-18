@@ -1,0 +1,51 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<head>
+<title>aaaaaaa</title>
+<style>
+.error{ color=red;}
+</style>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<h:body style="background-color:cyan">
+
+ 
+ 
+<div class="container">
+  
+    <div class="panel panel-primary" style="background-color:cyan">
+    	<div class="panel-heading text-center" ><b><h1>Manager Login</h1></b></div>
+    	<h:form>
+     <h5><b>Enter your username</b> </h5><br/>
+	<h:inputText value="#{manlog.username}" required="true" label="username" id="username" class="form-control input-sm"></h:inputText>
+	<h:message for="username" styleClass="error" ></h:message>
+	<br/><h5><b>Enter your Password</b></h5><br/>
+	<h:inputSecret value="#{manlog.password}" required="true" label="password" id="password" class="form-control input-sm"></h:inputSecret>
+	<h:message for="password" styleClass="error" ></h:message>
+	
+	<br/><h:commandButton value="submit"  action ="#{manlog.validity}" class="btn btn-primary btn-lg"> </h:commandButton>
+	</h:form>
+	 
+	<h:messages globalOnly="true"/>
+	</div>
+	<h:form>
+	<h:commandButton value="SignUp" action="manreg" class="btn btn-primary btn-lg "> </h:commandButton>
+	<h:commandButton value="Home" action="homepage" class="btn btn-primary btn-lg pull-right"> </h:commandButton>
+	
+	</h:form>
+	
+	  
+
+</div>
+
+
+</h:body>
+
+</html>

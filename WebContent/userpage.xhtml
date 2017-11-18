@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+<title>aaaaaaa</title>
+<style>
+.error{ color=red;}
+</style>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</h:head>
+<h:body style="background-color:cyan">
+
+   
+  <div class="container" >
+  <h:form>
+  <div class="jumbotron" >
+  	<h:commandButton value="logout" class="btn pull-right btn-lg" action="#{usereg.invalidity}"></h:commandButton>
+    <h1 class="text-center"><b>#{usereg.username} User</b></h1>      
+    <p class="text-center"></p>    
+  </div>     
+
+  <div class="jumbotron" style="background-color:GreenYellow ">
+ 
+    <h2 class="text-left"><b>User Profile</b></h2>    
+   <table class="table table-hover" >
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>#{usereg.name1}</th>
+        <th> <button type="button" class="btn pull-right" data-toggle="modal" data-target="#name">Update</button></th>
+       </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Email</td>
+        <td>#{usereg.email1}</td>
+        <td><button type="button" class="btn pull-right" data-toggle="modal" data-target="#email">Update</button></td>       
+      </tr>
+      <tr>
+        <td>Address</td>
+        <td>#{usereg.address1}</td>
+         <td><button type="button" class="btn pull-right" data-toggle="modal" data-target="#address">Update</button></td>     
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>#{usereg.mobile1}</td>
+         <td><button type="button" class="btn pull-right" data-toggle="modal" data-target="#mobile">Update</button></td>     
+      </tr>
+      <tr>
+        <td>Username</td>
+        <td>#{usereg.username}</td>
+         <td><button type="button" class="btn pull-right" data-toggle="modal" data-target="#username">Update</button></td>     
+      </tr>
+      <tr>
+        <td>password</td>
+        <td>#{usereg.password}</td>  
+         <td><button type="button" class="btn pull-right" data-toggle="modal" data-target="#password">Update</button></td>         
+      </tr>
+    </tbody>
+  </table>   
+    </div>
+	 </h:form>
+	<h:form>
+	<div class="modal fade" id="name" role="dialog" >
+    <div class="modal-dialog">     
+      <div class="modal-content">
+        <div class="modal-body">
+        <h5 ><b>Enter your  name</b> </h5><br/>
+         <h:inputText value="#{usereg.name2}" required="true" label="name" id="name" class="form-control ">
+		<f:validateRegex pattern="[a-zA-Z]+"></f:validateRegex>
+		</h:inputText>	
+		<h:message for="name" styleClass="error" ></h:message>
+		<br/><h:commandButton value="submit" action = "#{usereg.updatename}" class="btn btn-primary"> </h:commandButton><br/>
+		<h:messages globalOnly="true"/>
+        </div>
+        </div>
+      
+    </div>
+  </div>
+  </h:form>
+  <h:form>
+	<div class="modal fade" id="email" role="dialog" >
+    <div class="modal-dialog">     
+      <div class="modal-content">
+        <div class="modal-body">
+          <br/><h5><b> Enter your  email address</b></h5><br/>
+	<h:inputText  value="#{usereg.email2}" required="true" label="email" id="email" class="form-control">
+	<f:validateRegex pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+" />
+	</h:inputText>
+	<h:message for="email" styleClass="error" ></h:message>
+	<br/><h:commandButton value="submit" action = "#{usereg.updateemail}" class="btn btn-primary "> </h:commandButton><br/>
+	<h:messages globalOnly="true"/>
+        </div>
+       </div>
+      
+    </div>
+  </div>
+  </h:form>
+  <h:form>
+	<div class="modal fade" id="address" role="dialog" >
+    <div class="modal-dialog">     
+      <div class="modal-content">
+        <div class="modal-body">
+        <h5 ><b>Enter your  address</b> </h5><br/>
+         <h:inputText value="#{usereg.address2}" required="true" label="name" id="name" class="form-control ">
+		<f:validateRegex pattern="[a-zA-Z]+"></f:validateRegex>
+		</h:inputText>	
+		<h:message for="name" styleClass="error" ></h:message>
+		<br/><h:commandButton value="submit" action = "#{usereg.updateaddress}" class="btn btn-primary"> </h:commandButton><br/>
+		<h:messages globalOnly="true"/>
+        </div>
+        </div>
+      
+    </div>
+  </div>
+  </h:form>
+  <h:form>
+	<div class="modal fade" id="mobile" role="dialog" >
+    <div class="modal-dialog">     
+      <div class="modal-content">
+        <div class="modal-body">
+        <br/><h5><b>Enter your mobile</b></h5><br/>
+	<h:inputText value="#{usereg.mobile2}" required="true" label="mobile" id="mobile" class="form-control "></h:inputText>
+	<h:message for="mobile" styleClass="error" ></h:message>
+	<br/><h:commandButton value="submit" action = "#{usereg.updatemobile}" class="btn btn-primary"> </h:commandButton><br/>
+	<h:messages globalOnly="true"/>
+        </div>
+        </div>
+      
+    </div>
+  </div>
+  </h:form>
+  <h:form>
+	<div class="modal fade" id="username" role="dialog" >
+    <div class="modal-dialog">     
+      <div class="modal-content">
+        <div class="modal-body">
+        <h5 ><b>Enter your  username</b> </h5><br/>
+         <h:inputText value="#{usereg.username2}" required="true" label="name" id="name" class="form-control ">
+		<f:validateRegex pattern="[a-zA-Z]+"></f:validateRegex>
+		</h:inputText>	
+		<h:message for="name" styleClass="error" ></h:message>
+		<br/><h:commandButton value="submit" action = "#{usereg.updateusername}" class="btn btn-primary"> </h:commandButton><br/>
+		<h:messages globalOnly="true"/>
+        </div>
+       </div>
+      
+    </div>
+  </div>
+  </h:form>
+  <h:form>
+	<div class="modal fade" id="password" role="dialog" >
+    <div class="modal-dialog">     
+      <div class="modal-content">
+        <div class="modal-body">
+        <br/><h5><b>Enter your password</b></h5><br/>
+     <h:inputSecret value="#{usereg.password2}" required="true" label="passw" id="passw" class="form-control ">
+	<f:validateRegex pattern="[a-zA-Z]+"></f:validateRegex>
+	</h:inputSecret>
+	<h:message for="passw" styleClass="error" ></h:message>
+	<br/><h:commandButton value="submit" action = "#{usereg.updatepassword}" class="btn btn-primary"> </h:commandButton><br/>
+	<h:messages globalOnly="true"/>
+     </div>
+     </div>
+      
+    </div>
+  </div>
+  </h:form>
+  
+  <div class="jumbotron" style="background-color:lightgreen">
+     <h1><b>View Managers</b></h1>
+     <h:form>
+     <h:commandButton value="view" class="btn btn-primary btn-lg pull-right" action="#{usereg.selectedmanager}"></h:commandButton>     
+	<h:messages globalOnly="true"/>
+	
+	<h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle" value="#{usereg.selected}">
+		<f:selectItems value="#{usereg.numbers}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	</h:form>
+	<h:dataTable class="table table-striped" var="x" value="#{usereg.xyz}" >
+		<h:column>
+			<f:facet name="header">sno </f:facet>
+			<h:outputText value="#{x.sno}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">name </f:facet>
+			<h:outputText value="#{x.name}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">mobile </f:facet>
+			<h:outputText value="#{x.mobile}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">email </f:facet>
+			<h:outputText value="#{x.email}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">address   </f:facet>
+			<h:outputText value="#{x.address}"></h:outputText>
+		</h:column>
+		
+	</h:dataTable>
+  	
+  	  
+  </div> 
+   <div class="jumbotron" style="background-color:lightgreen">
+<h:form>
+   <h2><b>My Managers</b></h2>
+     <h:commandButton value="view" class="btn btn-primary btn-lg pull-right" action="#{usereg.viewmymanager}"></h:commandButton> 
+	<h:messages globalOnly="true"/>
+	
+	<h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle" value="#{usereg.selectedman}">
+		<f:selectItems value="#{usereg.numbersman}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	
+	<h:dataTable class="table table-striped" var="x" value="#{usereg.xyzman}" >
+		<h:column>
+			<f:facet name="header">sno </f:facet>
+			<h:outputText value="#{x.sno}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">name </f:facet>
+			<h:outputText value="#{x.name}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">mobile </f:facet>
+			<h:outputText value="#{x.mobile}"></h:outputText>
+		</h:column>
+		
+	</h:dataTable>
+  
+  
+  </h:form>
+</div>
+
+<h:form>
+   <h1><b>New messages</b></h1>
+   <h:commandButton value="Seen" class="btn btn-primary btn-lg pull-right" action="#{usereg.deltempmessage}"></h:commandButton> 
+    <h:dataTable class="table table-striped" var="x" value="#{usereg.xyzmanmessage}" style="background-color:orange">
+		<h:column>
+			<f:facet name="header">name </f:facet>
+			<h:outputText value="#{x.name}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">message </f:facet>
+			<h:outputText value="#{x.message}"></h:outputText>
+		</h:column>
+		
+	</h:dataTable>
+	
+  </h:form>
+
+
+ </div> 
+ 
+
+   
+</h:body>
+</html>
+ 
+  
+
+  
+
+ 
