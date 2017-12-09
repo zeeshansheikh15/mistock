@@ -1,10 +1,12 @@
 package mistock;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,6 +17,13 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SessionScoped
 
@@ -250,6 +259,7 @@ public class manlog {
 				this.table();
 				this.tableclient();
 				this.tableclientmessage();
+				this.stockprice();
 				
 				
 			} else {
@@ -1078,6 +1088,148 @@ public void deltempmessage()
 	}
 
 	
+}
+private Map<String,String> stocknames;
+private Map<String,String> stockintervals;
+public String selectedstock;
+public String selectedinterval;
+public String n;
+public String getN() {
+	return n;
+}
+
+public void setN(String n) {
+	this.n = n;
+}
+
+public Map<String, String> getStocknames() {
+	return stocknames;
+}
+
+public void setStocknames(Map<String, String> stocknames) {
+	this.stocknames = stocknames;
+}
+
+public Map<String, String> getStockintervals() {
+	return stockintervals;
+}
+
+public void setStockintervals(Map<String, String> stockintervals) {
+	this.stockintervals = stockintervals;
+}
+
+public String getSelectedstock() {
+	return selectedstock;
+}
+
+public void setSelectedstock(String selectedstock) {
+	this.selectedstock = selectedstock;
+}
+
+public String getSelectedinterval() {
+	return selectedinterval;
+}
+
+public void setSelectedinterval(String selectedinterval) {
+	this.selectedinterval = selectedinterval;
+}
+
+public void stockprice()
+	{
+	stocknames=new LinkedHashMap<String,String>();
+	stockintervals=new LinkedHashMap<String,String>();
+	stocknames.put( "Apple","AAPL");
+	stocknames.put( "Amazon LLC","AMZN");
+	stocknames.put( "Antero Resources","AR");
+	stocknames.put( "Ebay","EBAY");
+	stocknames.put( "Facebook, Inc.","FB");
+	stocknames.put( "Gold","GOLD");
+	stocknames.put( "Google","GOOGL");
+	stocknames.put( "Microsoft","MSFT");
+	stocknames.put( "Silver","SLV");
+	stocknames.put( "Twitter, Inc.","TWTR");
+	
+	stockintervals.put("1min", "1min");
+	stockintervals.put("5min", "5min");
+	stockintervals.put("15min", "15min");
+	stockintervals.put("30min", "30min");
+	stockintervals.put("60min", "60min");
+	
+	}
+public ArrayList<stockprice> stockprice=null;
+
+public ArrayList<stockprice> getStockprice() {
+	return stockprice;
+}
+
+public void setStockprice(ArrayList<stockprice> stockprice) {
+	this.stockprice = stockprice;
+}
+
+public void  callapi2()
+{
+System.out.println("Calling AlphaVantage API...");
+Client client= ClientBuilder.newClient();
+stockprice=new ArrayList<stockprice>();
+
+//WebTarget target= client.target("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+selectedstock+"&interval=1min"+"&apikey=8LY5VJQYBZTYS262");
+  WebTarget target= client.target("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+selectedstock+"&interval="+selectedinterval+"&apikey=8LY5VJQYBZTYS262");
+
+String data = target.request(MediaType.APPLICATION_JSON).get(String.class);
+
+try {	
+	ObjectMapper mapper = new ObjectMapper();
+	JsonNode root = mapper.readTree(data);
+	assert root.isObject();
+	JsonNode metadata = root.get("Meta Data");
+	assert metadata.isObject();
+	if (metadata.get("2. Symbol").isValueNode()) {
+		System.out.println(metadata.get("2. Symbol").asText());
+	}
+	System.out.println(root.at("/Meta Data/6. Time Zone").asText());
+	Iterator<String> dates = root.get("Time Series ("+selectedinterval+")").fieldNames();
+	while(dates.hasNext()) {
+		 n = root.at("/Time Series ("+selectedinterval+")/" + dates.next() + "/1. open").asText();
+		System.out.println(Double.parseDouble(n));
+		stockprice.add(new stockprice(selectedstock,dates.next(),n));
+		break;
+	}
+} catch (IOException e) {
+	e.printStackTrace();
+}
+}
+
+public void  callapi3()
+{
+System.out.println("Calling AlphaVantage API...");
+Client client= ClientBuilder.newClient();
+stockprice=new ArrayList<stockprice>();
+
+//WebTarget target= client.target("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+selectedstock+"&interval=1min"+"&apikey=8LY5VJQYBZTYS262");
+  WebTarget target= client.target("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+selectedstock+"&interval="+selectedinterval+"&apikey=8LY5VJQYBZTYS262");
+
+String data = target.request(MediaType.APPLICATION_JSON).get(String.class);
+
+try {	
+	ObjectMapper mapper = new ObjectMapper();
+	JsonNode root = mapper.readTree(data);
+	assert root.isObject();
+	JsonNode metadata = root.get("Meta Data");
+	assert metadata.isObject();
+	if (metadata.get("2. Symbol").isValueNode()) {
+		System.out.println(metadata.get("2. Symbol").asText());
+	}
+	System.out.println(root.at("/Meta Data/6. Time Zone").asText());
+	Iterator<String> dates = root.get("Time Series ("+selectedinterval+")").fieldNames();
+	while(dates.hasNext()) {
+		 n = root.at("/Time Series ("+selectedinterval+")/" + dates.next() + "/1. open").asText();
+		System.out.println(Double.parseDouble(n));
+		stockprice.add(new stockprice(selectedstock,dates.next(),n));
+		
+	}
+} catch (IOException e) {
+	e.printStackTrace();
+}
 }
 
 }

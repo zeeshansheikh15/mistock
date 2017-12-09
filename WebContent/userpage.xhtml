@@ -245,9 +245,10 @@
   
   </h:form>
 </div>
-
+ 
+ <div class="jumbotron" style="background-color:lightgreen">
 <h:form>
-   <h1><b>New messages</b></h1>
+   <h2><b>New messages</b></h2>
    <h:commandButton value="Seen" class="btn btn-primary btn-lg pull-right" action="#{usereg.deltempmessage}"></h:commandButton> 
     <h:dataTable class="table table-striped" var="x" value="#{usereg.xyzmanmessage}" style="background-color:orange">
 		<h:column>
@@ -262,18 +263,65 @@
 	</h:dataTable>
 	
   </h:form>
+  </div>
+   
+	 <div class="jumbotron" style="background-color:lightgreen">
+	<h:form>
+   <h2><b> View Stock Price</b></h2>
+   
+   <h:commandButton value="View price" class="btn btn-primary btn-lg pull-right" action="#{usereg.callapi2}"></h:commandButton> 
+   <h:commandButton value="View price history" class="btn btn-primary btn-lg pull-right" action="#{usereg.callapi3}"></h:commandButton>
+   <h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle pull-left" value="#{usereg.selectedstock}">
+		<f:selectItems value="#{usereg.stocknames}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	 <h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle pull-left" value="#{usereg.selectedinterval}">
+		<f:selectItems value="#{usereg.stockintervals}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	</h:form>
+	<h:form>
+	<button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#buy">Buy</button>
+   </h:form>
 
-
+	<h:dataTable class="table table-striped" var="x" value="#{usereg.stockprice}" style="background-color:orange">
+		<h:column>
+			<f:facet name="header">name </f:facet>
+			<h:outputText value="#{x.name}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">time </f:facet>
+			<h:outputText value="#{x.time}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">price </f:facet>
+			<h:outputText value="#{x.price}"></h:outputText>
+		</h:column>
+		
+	</h:dataTable>
+	</div>
+	
+        <h:form>
+	<div class="modal fade" id="buy" role="dialog" >
+    <div class="modal-dialog">     
+      <div class="modal-content">
+        <div class="modal-body">
+        <br/><h5><b>Enter Quantity </b></h5><br/>
+	<h:inputText value="#{usereg.quantity}" required="true" label="quantity" id="quantity" class="form-control "></h:inputText>
+	<h:message for="mobile" styleClass="error" ></h:message>
+	<br/><h:commandButton value="buy" action = "#{usereg.buy}" class="btn btn-primary"> </h:commandButton><br/>
+	<h:messages globalOnly="true"/>
+        </div>
+        </div>
+      
+    </div>
+  </div>
+  </h:form>
+        
  </div> 
 
+#{usereg.quantity}
 
-<h:form>
-   <h1><b>New messages</b></h1>
-   <h:commandButton value="api" class="btn btn-primary btn-lg pull-right" action="#{usereg.callapi}"></h:commandButton> 
-	
-  </h:form>
-
-	#{usereg.n}
 </h:body>
 </html>
  

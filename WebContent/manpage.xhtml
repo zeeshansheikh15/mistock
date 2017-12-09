@@ -176,9 +176,9 @@
   </div>
   </h:form>
   
-  
+  <div class="jumbotron" style="background-color:lightgreen">
   <h:form>
-   <h1><b>Request for Client</b></h1>
+   <h2><b>Request for Client</b></h2>
      <h:commandButton value="Reject" class="btn btn-primary btn-lg pull-right" action="#{manlog.deletetempman}"></h:commandButton> 
      <h:commandButton value="Accept" class="btn btn-primary btn-lg pull-right" action="#{manlog.selectedman}"></h:commandButton>     
 	<h:messages globalOnly="true"/>
@@ -206,9 +206,10 @@
   
   
   </h:form>
-  
+  </div>
+  <div class="jumbotron" style="background-color:lightgreen">
    <h:form>
-   <h1><b>My Clients</b></h1>
+   <h2><b>My Clients</b></h2>
      <h:commandButton value="view" class="btn btn-primary btn-lg pull-right"  action="#{manlog.viewclient}"></h:commandButton> 
      
 	<h:messages globalOnly="true"/>
@@ -236,9 +237,10 @@
   
   
   </h:form>
-  
+  </div>
+  <div class="jumbotron" style="background-color:lightgreen">
     <h:form>
-    <h1><b>New messages</b></h1>
+    <h2><b>New messages</b></h2>
    <h:commandButton value="Seen" class="btn btn-primary btn-lg pull-right" action="#{manlog.deltempmessage}"></h:commandButton> 
     <h:dataTable class="table table-striped" var="x" value="#{manlog.xyzclientmessage}" style="background-color:orange">
 		<h:column>
@@ -253,7 +255,41 @@
 	</h:dataTable>
 	
   </h:form>
-  
+  </div>
+   <div class="jumbotron" style="background-color:lightgreen">
+	<h:form>
+   <h2><b> View Stock Price</b></h2>
+   
+   <h:commandButton value="View price" class="btn btn-primary btn-lg pull-right" action="#{manlog.callapi2}"></h:commandButton> 
+   <h:commandButton value="View price history" class="btn btn-primary btn-lg pull-right" action="#{manlog.callapi3}"></h:commandButton> 
+   <h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle pull-left" value="#{manlog.selectedstock}">
+		<f:selectItems value="#{manlog.stocknames}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	 <h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle pull-left" value="#{manlog.selectedinterval}">
+		<f:selectItems value="#{manlog.stockintervals}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	
+	
+  </h:form>
+
+	<h:dataTable class="table table-striped" var="x" value="#{manlog.stockprice}" style="background-color:orange">
+		<h:column>
+			<f:facet name="header">name </f:facet>
+			<h:outputText value="#{x.name}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">time </f:facet>
+			<h:outputText value="#{x.time}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">price </f:facet>
+			<h:outputText value="#{x.price}"></h:outputText>
+		</h:column>
+		
+	</h:dataTable>
+	</div>
 
  
  </div> 

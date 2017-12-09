@@ -253,6 +253,7 @@ public class usereg {
 			ss.setAttribute("username", username);
 			this.tableman();
 			this.tablemanmessage();
+			this.stockprice();
 			return ("userpage");
 		} else {
 			FacesMessage fs = new FacesMessage("login error:Invalid username or password", "ERROR_MSG");
@@ -1000,6 +1001,7 @@ public void deltempmessage()
 	
 }
 private String n;
+private String time;
 public void  callapi()
 {
 System.out.println("Calling AlphaVantage API...");
@@ -1052,4 +1054,276 @@ public String getN() {
 public void setN(String n) {
 	this.n = n;
 }
+
+private Map<String,String> stocknames;
+private Map<String,String> stockintervals;
+public String selectedstock;
+public String selectedinterval;
+public Map<String, String> getStocknames() {
+	return stocknames;
+}
+
+public void setStocknames(Map<String, String> stocknames) {
+	this.stocknames = stocknames;
+}
+
+public Map<String, String> getStockintervals() {
+	return stockintervals;
+}
+
+public void setStockintervals(Map<String, String> stockintervals) {
+	this.stockintervals = stockintervals;
+}
+
+public String getSelectedstock() {
+	return selectedstock;
+}
+
+public void setSelectedstock(String selectedstock) {
+	this.selectedstock = selectedstock;
+}
+
+public String getSelectedinterval() {
+	return selectedinterval;
+}
+
+public void setSelectedinterval(String selectedinterval) {
+	this.selectedinterval = selectedinterval;
+}
+
+public void stockprice()
+	{
+	stocknames=new LinkedHashMap<String,String>();
+	stockintervals=new LinkedHashMap<String,String>();
+	stocknames.put( "Apple","AAPL");
+	stocknames.put( "Amazon LLC","AMZN");
+	stocknames.put( "Antero Resources","AR");
+	stocknames.put( "Ebay","EBAY");
+	stocknames.put( "Facebook, Inc.","FB");
+	stocknames.put( "Gold","GOLD");
+	stocknames.put( "Google","GOOGL");
+	stocknames.put( "Microsoft","MSFT");
+	stocknames.put( "Silver","SLV");
+	stocknames.put( "Twitter, Inc.","TWTR");
+	
+	stockintervals.put("1min", "1min");
+	stockintervals.put("5min", "5min");
+	stockintervals.put("15min", "15min");
+	stockintervals.put("30min", "30min");
+	stockintervals.put("60min", "60min");
+	
+	}
+public ArrayList<stockprice> stockprice=null;
+
+public ArrayList<stockprice> getStockprice() {
+	return stockprice;
+}
+
+public void setStockprice(ArrayList<stockprice> stockprice) {
+	this.stockprice = stockprice;
+}
+
+public void  callapi2()
+{
+System.out.println("Calling AlphaVantage API...");
+Client client= ClientBuilder.newClient();
+stockprice=new ArrayList<stockprice>();
+
+//WebTarget target= client.target("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+selectedstock+"&interval=1min"+"&apikey=8LY5VJQYBZTYS262");
+  WebTarget target= client.target("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+selectedstock+"&interval="+selectedinterval+"&apikey=8LY5VJQYBZTYS262");
+
+String data = target.request(MediaType.APPLICATION_JSON).get(String.class);
+
+try {	
+	ObjectMapper mapper = new ObjectMapper();
+	JsonNode root = mapper.readTree(data);
+	assert root.isObject();
+	JsonNode metadata = root.get("Meta Data");
+	assert metadata.isObject();
+	if (metadata.get("2. Symbol").isValueNode()) {
+		System.out.println(metadata.get("2. Symbol").asText());
+	}
+	System.out.println(root.at("/Meta Data/6. Time Zone").asText());
+	Iterator<String> dates = root.get("Time Series ("+selectedinterval+")").fieldNames();
+	while(dates.hasNext()) {
+		time = dates.next();
+		 n = root.at("/Time Series ("+selectedinterval+")/" + dates.next() + "/1. open").asText();
+		System.out.println(Double.parseDouble(n));
+		stockprice.add(new stockprice(selectedstock,dates.next(),n));
+		break;
+	}
+} catch (IOException e) {
+	e.printStackTrace();
+}
+}
+
+public void  callapi3()
+{
+System.out.println("Calling AlphaVantage API...");
+Client client= ClientBuilder.newClient();
+stockprice=new ArrayList<stockprice>();
+
+//WebTarget target= client.target("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+selectedstock+"&interval=1min"+"&apikey=8LY5VJQYBZTYS262");
+  WebTarget target= client.target("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+selectedstock+"&interval="+selectedinterval+"&apikey=8LY5VJQYBZTYS262");
+
+String data = target.request(MediaType.APPLICATION_JSON).get(String.class);
+
+try {	
+	ObjectMapper mapper = new ObjectMapper();
+	JsonNode root = mapper.readTree(data);
+	assert root.isObject();
+	JsonNode metadata = root.get("Meta Data");
+	assert metadata.isObject();
+	if (metadata.get("2. Symbol").isValueNode()) {
+		System.out.println(metadata.get("2. Symbol").asText());
+	}
+	System.out.println(root.at("/Meta Data/6. Time Zone").asText());
+	Iterator<String> dates = root.get("Time Series ("+selectedinterval+")").fieldNames();
+	while(dates.hasNext()) {
+		 n = root.at("/Time Series ("+selectedinterval+")/" + dates.next() + "/1. open").asText();
+		System.out.println(Double.parseDouble(n));
+		stockprice.add(new stockprice(selectedstock,dates.next(),n));
+		
+	}
+} catch (IOException e) {
+	e.printStackTrace();
+}
+}
+
+private String quantity;
+public String getQuantity() {
+	return quantity;
+}
+
+public void setQuantity(String quantity) {
+	this.quantity = quantity;
+}
+
+public void buy()
+{
+	this.callapi2();
+	String url1 = System.getenv("ICSI518_SERVER");
+	String url2 = System.getenv("ICSI518_PORT");
+	String url3 = System.getenv("ICSI518_DB");
+	String use = System.getenv("ICSI518_USER");
+	String passwrd = System.getenv("ICSI518_PASSWORD");
+	String url = "jdbc:mysql://" + url1 +":"+url2+"/"+url3;
+	Connection con = null;
+	System.out.println("connected");
+	Double balance;
+	
+
+
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		con = DriverManager.getConnection(url, use, passwrd);
+
+		String sql = "insert into userstocks " + "(iduserstocks,stockname,stockprice,currentprice,time,quantity)"
+				+ "values (?,?,?,?,?,?)";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setDouble(1, iduser);
+		ps.setString(2, selectedstock);
+		ps.setString(3, n);
+		ps.setString(4, n);
+		ps.setString(5, time);
+		ps.setString(6, quantity);
+		
+		
+
+		ps.executeUpdate();
+		this.updateaccount();
+
+	} catch (Exception e) {
+		System.out.println("error" + e.getMessage());
+
+	}
+
+	
+}
+Double balance;
+public Double getBalance() {
+	return balance;
+}
+
+public void setBalance(Double balance) {
+	this.balance = balance;
+}
+
+public void getaccbalance()
+{
+	String url1 = System.getenv("ICSI518_SERVER");
+	String url2 = System.getenv("ICSI518_PORT");
+	String url3 = System.getenv("ICSI518_DB");
+	String use = System.getenv("ICSI518_USER");
+	String passwrd = System.getenv("ICSI518_PASSWORD");
+	String url = "jdbc:mysql://" + url1 +":"+url2+"/"+url3;
+	Connection con = null;
+	System.out.println("connected");
+	
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		con = DriverManager.getConnection(url, use, passwrd);
+
+		String sql = "select balance from useraccounts where iduseraccounts = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setDouble(1, iduser);
+		
+		ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+			
+			balance=rs.getDouble(1);
+			System.out.println(balance);
+			
+		}
+	} catch (Exception e) {
+		System.out.println("error" + e.getMessage());
+
+	}
+
+}
+	
+public void updateaccount()
+{
+	this.getaccbalance();
+	String url1 = System.getenv("ICSI518_SERVER");
+	String url2 = System.getenv("ICSI518_PORT");
+	String url3 = System.getenv("ICSI518_DB");
+	String use = System.getenv("ICSI518_USER");
+	String passwrd = System.getenv("ICSI518_PASSWORD");
+	String url = "jdbc:mysql://" + url1 +":"+url2+"/"+url3;
+	Connection con = null;
+	System.out.println("connected");
+	int q = Integer.parseInt(quantity);
+	Double buyprice = Double.parseDouble(n);
+	Double balance1 = balance - q*buyprice;
+	System.out.println(q);
+	System.out.println(buyprice);
+	System.out.println(balance1);
+	
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		con = DriverManager.getConnection(url, use, passwrd);
+
+		String sql = "update useraccounts " + "SET balance = ? WHERE iduseraccounts = ?";
+		
+		PreparedStatement ps = con.prepareStatement(sql);
+		
+		ps.setDouble(1, balance1);
+		ps.setDouble(2, iduser);
+		
+		ps.executeUpdate();
+		System.out.println("inserted "+balance1);
+					
+		
+	} catch (Exception e) {
+		System.out.println("error" + e.getMessage());
+
+	}
+
+}
+
+
+
+
+
 }
