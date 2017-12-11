@@ -29,6 +29,8 @@ public class adminlog {
 	private String address;
 	private String user;
 	private String passw;
+	private String license;
+	private Double fee;
 	
 	private String username;
 	private String password;
@@ -38,6 +40,23 @@ public class adminlog {
 	private Map<Integer,Integer> numbers;
 	double t = 0;
 	public int selected;
+	
+	public String getLicense() {
+		return license;
+	}
+
+	public void setLicense(String license) {
+		this.license = license;
+	}
+
+	public Double getFee() {
+		return fee;
+	}
+
+	public void setFee(Double fee) {
+		this.fee = fee;
+	}
+
 	public int getSelected() {
 		return selected;
 	}
@@ -73,11 +92,11 @@ public class adminlog {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(url, use, passwrd);
 
-			PreparedStatement stmt=con.prepareStatement("select name,mobile,email,address from manregtemp");  
+			PreparedStatement stmt=con.prepareStatement("select name,mobile,email,address,license,fee from manregtemp");  
 			ResultSet rs=stmt.executeQuery();  
 			while(rs.next()){  
 			
-			xyz.add(new mantemp(i,rs.getString(1), rs.getInt(2),rs.getString(3),rs.getString(4)));
+			xyz.add(new mantemp(i,rs.getString(1), rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getDouble(6)));
 			numbers.put(i,rs.getInt(2) );
 			i++;
 			}
@@ -174,6 +193,8 @@ public class adminlog {
 				this.address=rs.getString(5);
 				this.user=rs.getString(6);
 				this.passw=rs.getString(7);
+				this.license=rs.getString(8);
+				this.fee=rs.getDouble(9);
 			}
 			this.registerman();
 
@@ -197,8 +218,8 @@ public class adminlog {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(url, use, passwrd);
 
-			String sql = "insert into manager " + "(iduser,name,mobile,email,address,username,password)"
-					+ "values (?,?,?,?,?,?,?)";
+			String sql = "insert into manager " + "(iduser,name,mobile,email,address,username,password,license,fee)"
+					+ "values (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setDouble(1, iduser);
 			ps.setString(2, name);
@@ -207,8 +228,19 @@ public class adminlog {
 			ps.setString(5, address);
 			ps.setString(6, user);
 			ps.setString(7, passw);
+			ps.setString(8, license);
+			ps.setDouble(9, fee);
 
 			ps.executeUpdate();
+			
+			String sql2 = "insert into manageraccounts " + "(idmanageraccounts,balance)"
+					+ "values (?,?)";
+			PreparedStatement ps2 = con.prepareStatement(sql2);
+			ps2.setDouble(1, iduser);
+			ps2.setDouble(2, 0);
+			
+
+			ps2.executeUpdate();
 
 		} catch (Exception e) {
 			System.out.println("error" + e.getMessage());

@@ -66,8 +66,10 @@
     </div>
   </div>
   </h:form>
+  
+  <div class="jumbotron" style="background-color:lightgreen">
   <h:form>
-   <h1><b>My messages</b></h1>
+   <h2><b>My messages</b></h2>
     <h:dataTable class="table table-striped" var="x" value="#{manlog.xyzclientmessage2}" style="background-color:orange">
 		<h:column>
 			<f:facet name="header">name </f:facet>
@@ -81,6 +83,108 @@
 	</h:dataTable>
 	
   </h:form>
+ </div>
+  
+   <div class="jumbotron" style="background-color:lightgreen">
+	<h:form>
+   <h2><b> View Stock Price</b></h2>
+   
+   <h:commandButton value="View price" class="btn btn-primary btn-lg pull-right" action="#{manlog.callapi2}"></h:commandButton> 
+   <h:commandButton value="View price history" class="btn btn-primary btn-lg pull-right" action="#{manlog.callapi3}"></h:commandButton> 
+   <h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle pull-left" value="#{manlog.selectedstock}">
+		<f:selectItems value="#{manlog.stocknames}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	 <h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle pull-left" value="#{manlog.selectedinterval}">
+		<f:selectItems value="#{manlog.stockintervals}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	
+	
+  </h:form>
+  <h:form>
+	<button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#buy">Buy</button>
+   </h:form>
+  
+
+	<h:dataTable class="table table-striped" var="x" value="#{manlog.stockprice}" style="background-color:orange">
+		<h:column>
+			<f:facet name="header">name </f:facet>
+			<h:outputText value="#{x.name}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">time </f:facet>
+			<h:outputText value="#{x.time}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">price </f:facet>
+			<h:outputText value="#{x.price}"></h:outputText>
+		</h:column>
+		
+	</h:dataTable>
+	</div>
+  
+    <h:form>
+	<div class="modal fade" id="buy" role="dialog" >
+    <div class="modal-dialog">     
+      <div class="modal-content">
+        <div class="modal-body">
+        <br/><h5><b>Enter Quantity </b></h5><br/>
+	<h:inputText value="#{manlog.quantity}" required="true" label="quantity" id="quantity" class="form-control "></h:inputText>
+	<h:message for="mobile" styleClass="error" ></h:message>
+	<br/><h:commandButton value="buy" action = "#{manlog.buy}" class="btn btn-primary"> </h:commandButton><br/>
+	<h:messages globalOnly="true"/>
+        </div>
+        </div>
+      
+    </div>
+  </div>
+  </h:form>  
+  
+   <div class="jumbotron" style="background-color:lightgreen">
+<h:form>
+   <h2><b>My Watch List</b></h2>
+    <h:commandButton value="sell" class="btn btn-primary btn-lg pull-right" action="#{manlog.sellit}"></h:commandButton> 
+	<h:messages globalOnly="true"/>
+	
+	<h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle" value="#{manlog.sellstock}">
+		<f:selectItems value="#{manlog.numberslist}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	
+	<h:dataTable class="table table-striped" var="x" value="#{manlog.userstockslist}" >
+		<h:column>
+			<f:facet name="header">sno </f:facet>
+			<h:outputText value="#{x.sno}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">name </f:facet>
+			<h:outputText value="#{x.name}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">time </f:facet>
+			<h:outputText value="#{x.time}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">price </f:facet>
+			<h:outputText value="#{x.price}"></h:outputText>
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">quantity </f:facet>
+			<h:outputText value="#{x.quantity}"></h:outputText>
+		</h:column>
+		
+	</h:dataTable>
+  
+  
+  </h:form>
+</div>
+      
+
+
+  
+  
  </div>
 </h:body>
 </html>

@@ -26,8 +26,9 @@
   <h:form>
   <div class="jumbotron" >
   	<h:commandButton value="logout" class="btn pull-right btn-lg" action="#{usereg.invalidity}"></h:commandButton>
-    <h1 class="text-center"><b>#{usereg.username} User</b></h1>      
-    <p class="text-center"></p>    
+  	<h:commandButton value="Refresh" class="btn pull-right btn-lg" action="#{usereg.validity}"></h:commandButton>
+    <h1 class="text-center"><b>#{usereg.username} User  </b></h1>      
+      
   </div>     
 
   <div class="jumbotron" style="background-color:GreenYellow ">
@@ -42,6 +43,11 @@
        </tr>
     </thead>
     <tbody>
+     <tr>
+        <td><B>Balance</B></td>
+        <td><B>#{usereg.BALANCE}</B></td>
+            
+      </tr>
       <tr>
         <td>Email</td>
         <td>#{usereg.email1}</td>
@@ -317,10 +323,51 @@
     </div>
   </div>
   </h:form>
-        
+  
+   <div class="jumbotron" style="background-color:lightgreen">
+<h:form>
+   <h2><b>My Watch List</b></h2>
+    <h:commandButton value="sell" class="btn btn-primary btn-lg pull-right" action="#{usereg.sellit}"></h:commandButton> 
+	<h:messages globalOnly="true"/>
+	
+	<h:selectOneMenu class="btn btn-primary btn-lg dropdown-toggle" value="#{usereg.sellstock}">
+		<f:selectItems value="#{usereg.numberslist}">
+		</f:selectItems>
+	</h:selectOneMenu>
+	
+	<h:dataTable class="table table-striped" var="x" value="#{usereg.userstockslist}" >
+		<h:column>
+			<f:facet name="header">sno </f:facet>
+			<h:outputText value="#{x.sno}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">name </f:facet>
+			<h:outputText value="#{x.name}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">time </f:facet>
+			<h:outputText value="#{x.time}"></h:outputText>
+		</h:column>
+		<h:column>
+			<f:facet name="header">price </f:facet>
+			<h:outputText value="#{x.price}"></h:outputText>
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">quantity </f:facet>
+			<h:outputText value="#{x.quantity}"></h:outputText>
+		</h:column>
+		
+		
+	</h:dataTable>
+  
+  
+  </h:form>
+</div>
+      
  </div> 
 
-#{usereg.quantity}
+
 
 </h:body>
 </html>

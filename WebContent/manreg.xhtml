@@ -35,6 +35,17 @@
 	</h:inputText>
 	<h:message for="email" styleClass="error" ></h:message>
 	
+	<br/><h5><b> Enter your  license no</b></h5><br/>
+	<h:inputText  value="#{manlog.license}" required="true" label="license" id="license" class="form-control input-lg">
+	<f:validateRegex pattern="[a-zA-Z0-9]+" />
+	</h:inputText>
+	<h:message for="license" styleClass="error" ></h:message>
+	
+	
+	<br/><h5><b>Enter your fee</b></h5><br/>
+	<h:inputText value="#{manlog.fee}" required="true" label="fee" id="fee" class="form-control input-lg"></h:inputText>
+	<h:message for="fee" styleClass="error" ></h:message>
+	
 	<br/><h5><b>Enter your address</b></h5><br/>
 	<h:inputText value="#{manlog.address}" required="true" label="address" id="address" class="form-control input-lg">
 	<f:validateRegex pattern="[a-zA-Z]+"></f:validateRegex>

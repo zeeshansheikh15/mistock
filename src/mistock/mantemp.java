@@ -11,8 +11,23 @@ public class mantemp {
 	private String address;
 	private String user;
 	private String passw;
+	private String license;
+	private Double fee;
 	
 
+	
+	public String getLicense() {
+		return license;
+	}
+	public void setLicense(String license) {
+		this.license = license;
+	}
+	public Double getFee() {
+		return fee;
+	}
+	public void setFee(Double fee) {
+		this.fee = fee;
+	}
 	public mantemp(int sno, String name, int mobile, String email, String address) {
 		super();
 		this.sno = sno;
@@ -20,6 +35,17 @@ public class mantemp {
 		this.mobile = mobile;
 		this.email = email;
 		this.address = address;
+	}
+	
+	public mantemp(int sno, String name, int mobile, String email, String address, String license, Double fee) {
+		super();
+		this.sno = sno;
+		this.name = name;
+		this.mobile = mobile;
+		this.email = email;
+		this.address = address;
+		this.license = license;
+		this.fee = fee;
 	}
 	public String getUser() {
 		return user;
@@ -66,7 +92,7 @@ public class mantemp {
 	@Override
 	public String toString() {
 		return "mantemp [sno=" + sno + ", name=" + name + ", mobile=" + mobile + ", email=" + email + ", address="
-				+ address + "]";
+				+ address + ", user=" + user + ", passw=" + passw + ", license=" + license + ", fee=" + fee + "]";
 	}
 
 

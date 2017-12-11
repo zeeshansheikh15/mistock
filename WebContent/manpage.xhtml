@@ -22,7 +22,8 @@
   <h:form>
   <div class="jumbotron" >
   	<h:commandButton value="logout" class="btn pull-right btn-lg" action="#{manlog.invalidity}"></h:commandButton>
-    <h1 class="text-center"><b>#{manlog.username}  Manager</b></h1>      
+  	<h:commandButton value="Refresh" class="btn pull-right btn-lg" action="#{manlog.validity}"></h:commandButton>
+    <h1 class="text-center"><b>#{manlog.username}  Manager </b></h1>      
     <p class="text-center"></p>    
   </div>     
 
@@ -38,6 +39,17 @@
        </tr>
     </thead>
     <tbody>
+      <tr>
+        <td><B>Balance</B></td>
+        <td><B>#{manlog.BALANCE}</B></td>
+            
+      </tr>
+    <tr>
+        <td>Fee</td>
+        <td>#{manlog.fees}</td>
+         <td><button type="button" class="btn pull-right" data-toggle="modal" data-target="#fee">Update</button></td> 
+      </tr>
+    
       <tr>
         <td>Email</td>
         <td>#{manlog.email1}</td>
@@ -80,6 +92,22 @@
 		<br/><h:commandButton value="submit" action = "#{manlog.updatename}" class="btn btn-primary"> </h:commandButton><br/>
 		<h:messages globalOnly="true"/>
         </div>
+        </div>
+      </div>
+      </div>
+      </h:form>
+      <h:form>
+      <div class="modal fade" id="fee" role="dialog" >
+    <div class="modal-dialog">     
+      <div class="modal-content">
+        <div class="modal-body">
+        <h5 ><b>Enter your  Fee</b> </h5><br/>
+         
+	<h:inputText value="#{manlog.fee2}" required="true" label="fee" id="fee" class="form-control "></h:inputText>
+	<h:message for="fee" styleClass="error" ></h:message>
+	<br/><h:commandButton value="submit" action = "#{manlog.updatefee}" class="btn btn-primary"> </h:commandButton><br/>
+	<h:messages globalOnly="true"/>
+		 </div>
         
       </div>
       
