@@ -1425,7 +1425,7 @@ public void updateaccount()
 	System.out.println("connected");
 	int q = Integer.parseInt(quantity);
 	Double buyprice = Double.parseDouble(n);
-	Double balance1 = balance - q*buyprice;
+	Double balance1 = balance - q*buyprice-fees;
 	System.out.println(q);
 	System.out.println(buyprice);
 	System.out.println(balance1);
@@ -1675,7 +1675,7 @@ public void updateaccountbalance()
 	System.out.println(balance);
 	int q = this.buyquantity;
 	Double currentprice99 = Double.parseDouble(this.currentprice);
-	Double balance99 = balance + q*(currentprice99);
+	Double balance99 = balance + q*(currentprice99)-fees;
 	System.out.println(q);
 	System.out.println(buyprice);
 	System.out.println(balance99);
