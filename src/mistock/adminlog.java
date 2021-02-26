@@ -375,5 +375,4 @@ public class adminlog {
 	{
 		System.out.println(selected);
 	}
-
 }
